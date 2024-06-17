@@ -1,0 +1,155 @@
+public class EventParticipants {
+
+   
+    static class Candidate {
+        String name;
+        String category; // "Sports" or "Academic"
+
+        Candidate(String name, String category) {
+            this.name = name;
+            this.category = category;
+        }
+    }
+
+    public static void main(String[] args) {
+        // Generate a dummy list of 50 candidates
+        Candidate[] candidates = generateDummyCandidates();
+
+        
+        String names = generateCandidateNames(candidates, 10);
+        System.out.println("Original Names: " + names);
+
+        
+        process(names);
+
+        // Generate separate strings for Academic and Sports candidates
+        System.out.println("\nCandidate Type\t\tCandidate Name\t\t\tCandidate Type\t\tCandidate Name");
+        printCandidateList(candidates);
+    }
+
+    
+    private static Candidate[] generateDummyCandidates() {
+        Candidate[] candidates = new Candidate[50];
+        String[] sportsNames = {"John", "Mike", "Sarah", "Jessica", "Peter", "Mark", "Samantha", "Daniel", "Laura", "Tom",
+                                "Jerry", "Diana", "Steve", "Kim", "James", "Lily", "Nancy", "Paul", "Kevin", "Brian",
+                                "Alice", "Sophia", "Megan"};
+        String[] academicNames = {"Emma", "Olivia", "Ava", "Isabella", "Mia", "Charlotte", "Amelia", "Evelyn", "Abigail", "Harper",
+                                  "Emily", "Ella", "Elizabeth", "Sofia", "Madison", "Avery", "Mila", "Aria", "Scarlett", "Penelope",
+                                  "Layla", "Chloe", "Victoria", "Grace", "Luna", "Hannah", "Lillian"};
+
+        for (int i = 0; i < 23; i++) {
+            candidates[i] = new Candidate(sportsNames[i], "Sports");
+        }
+        for (int i = 0; i < 27; i++) {
+            candidates[23 + i] = new Candidate(academicNames[i], "Academic");
+        }
+
+        return candidates;
+    }
+
+    
+    private static String generateCandidateNames(Candidate[] candidates, int count) {
+        StringBuilder names = new StringBuilder();
+        for (int i = 0; i < count; i++) {
+            names.append(candidates[i].name);
+            if (i < count - 1) {
+                names.append(", ");
+            }
+        }
+        return names.toString();
+    }
+
+    
+    private static void process(String names) {
+        String[] nameArray = names.split(", ");
+        sortNames(nameArray);
+        System.out.print("Sorted Names: ");
+        for (int i = 0; i < nameArray.length; i++) {
+            System.out.print(nameArray[i]);
+            if (i < nameArray.length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+    }
+
+   
+    private static void sortNames(String[] names) {
+        int n = names.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (names[j].compareTo(names[j + 1]) > 0) {
+                    // Swap names[j] and names[j + 1]
+                    String temp = names[j];
+                    names[j] = names[j + 1];
+                    names[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    
+    private static void printCandidateList(Candidate[] candidates) {
+        String[] academicNames = new String[27];
+        String[] sportsNames = new String[23];
+        int academicIndex = 0;
+        int sportsIndex = 0;
+
+        for (int i = 0; i < candidates.length; i++) {
+            if (candidates[i].category.equals("Academic")) {
+                academicNames[academicIndex++] = candidates[i].name;
+            } else {
+                sportsNames[sportsIndex++] = candidates[i].name;
+            }
+        }
+
+        sortNames(academicNames);
+        sortNames(sportsNames);
+
+        int maxIndex = Math.max(academicIndex, sportsIndex);
+        for (int i = 0; i < maxIndex; i++) {
+            String academicCandidate = (i < academicIndex) ? academicNames[i] : "";
+            String sportsCandidate = (i < sportsIndex) ? sportsNames[i] : "";
+
+            System.out.printf("%-20s\t%-20s\t%-20s\t%-20s%n", 
+                (i < academicIndex) ? "Academic Candidate" : "", 
+                academicCandidate,
+                (i < sportsIndex) ? "Sports Candidate" : "", 
+                sportsCandidate);
+        }
+    }
+}
+
+
+Output:
+Original Names: John, Mike, Sarah, Jessica, Peter, Mark, Samantha, Daniel, Laura, Tom
+Sorted Names: Daniel, Jessica, John, Laura, Mark, Mike, Peter, Samantha, Sarah, Tom
+
+Candidate Type          Candidate Name                  Candidate Type          Candidate Name
+Academic Candidate      Abigail                 Sports Candidate                  Alice
+Academic Candidate      Amelia                  Sports Candidate                  Brian
+Academic Candidate      Aria                    Sports Candidate                  Daniel
+Academic Candidate      Ava                     Sports Candidate                  Diana               
+Academic Candidate      Avery                   Sports Candidate                  James
+Academic Candidate      Charlotte               Sports Candidate                  Jerry
+Academic Candidate      Chloe                   Sports Candidate                  Jessica
+Academic Candidate      Elizabeth               Sports Candidate                  John 
+Academic Candidate      Ella                    Sports Candidate                  Kevin
+Academic Candidate      Emily                   Sports Candidate                  Kim
+Academic Candidate      Emma                    Sports Candidate                  Laura               
+Academic Candidate      Evelyn                  Sports Candidate                  Lily
+Academic Candidate      Grace                   Sports Candidate                  Mark
+Academic Candidate      Hannah                  Sports Candidate                  Megan
+Academic Candidate      Harper                  Sports Candidate                  Mike
+Academic Candidate      Isabella                Sports Candidate                  Nancy
+Academic Candidate      Layla                   Sports Candidate                  Paul
+Academic Candidate      Lillian                 Sports Candidate                  Peter
+Academic Candidate      Luna                    Sports Candidate                  Samantha
+Academic Candidate      Madison                 Sports Candidate                  Sarah
+Academic Candidate      Mia                     Sports Candidate                  Sophia
+Academic Candidate      Mila                    Sports Candidate                  Steve
+Academic Candidate      Olivia                  Sports Candidate                  Tom
+Academic Candidate      Penelope
+Academic Candidate      Scarlett
+Academic Candidate      Sofia
+Academic Candidate      Victoria
