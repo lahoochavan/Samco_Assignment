@@ -138,6 +138,13 @@ public class ResumeAnalyzer {
 
 Output:
 
-
+Max User Alphabet: e
+Max User Number: 2
+Min Used Alphabet: x
+Min Used Number: 4
+Max Used Word: and
+2nd Max Used Word: java
+Min Used Word: stack
+2nd Min Used Word: qa
 
 
